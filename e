@@ -1,0 +1,176 @@
+[1mdiff --git a/BugSense b/BugSense[m
+[1m--- a/BugSense[m
+[1m+++ b/BugSense[m
+[36m@@ -1 +1 @@[m
+[31m-Subproject commit 493fbe8772e5de3ff0e0946eeea977f9963285c0[m
+[32m+[m[32mSubproject commit 493fbe8772e5de3ff0e0946eeea977f9963285c0-dirty[m
+[1mdiff --git a/templatemo-electric-scripts.js b/templatemo-electric-scripts.js[m
+[1mdeleted file mode 100644[m
+[1mindex 30840af..0000000[m
+[1m--- a/templatemo-electric-scripts.js[m
+[1m+++ /dev/null[m
+[36m@@ -1,255 +0,0 @@[m
+[31m-// JavaScript Document[m
+[31m-[m
+[31m-/*[m
+[31m-[m
+[31m-TemplateMo 596 Electric Xtra[m
+[31m-[m
+[31m-https://templatemo.com/tm-596-electric-xtra[m
+[31m-[m
+[31m-*/[m
+[31m-[m
+[31m-// Create floating particles[m
+[31m-        function createParticles() {[m
+[31m-            const particlesContainer = document.getElementById('particles');[m
+[31m-            const particleCount = 30;[m
+[31m-[m
+[31m-            for (let i = 0; i < particleCount; i++) {[m
+[31m-                const particle = document.createElement('div');[m
+[31m-                particle.className = 'particle';[m
+[31m-                particle.style.left = Math.random() * 100 + '%';[m
+[31m-                particle.style.animationDelay = Math.random() * 15 + 's';[m
+[31m-                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';[m
+[31m-                [m
+[31m-                // Randomly assign orange or blue color[m
+[31m-                if (Math.random() > 0.5) {[m
+[31m-                    particle.style.setProperty('--particle-color', '#00B2FF');[m
+[31m-                    const before = particle.style.getPropertyValue('--particle-color');[m
+[31m-                    particle.style.background = '#00B2FF';[m
+[31m-                }[m
+[31m-                [m
+[31m-                particlesContainer.appendChild(particle);[m
+[31m-            }[m
+[31m-        }[m
+[31m-[m
+[31m-        // Mobile menu toggle[m
+[31m-        const menuToggle = document.getElementById('menuToggle');[m
+[31m-        const navLinks = document.getElementById('navLinks');[m
+[31m-[m
+[31m-        menuToggle.addEventListener('click', () => {[m
+[31m-            menuToggle.classList.toggle('active');[m
+[31m-            navLinks.classList.toggle('active');[m
+[31m-        });[m
+[31m-[m
+[31m-        // Close mobile menu when clicking a link[m
+[31m-        document.querySelectorAll('.nav-links a').forEach(link => {[m
+[31m-            link.addEventListener('click', () => {[m
+[31m-                menuToggle.classList.remove('active');[m
+[31m-                navLinks.classList.remove('active');[m
+[31m-            });[m
+[31m-        });[m
+[31m-[m
+[31m-        // Active navigation highlighting[m
+[31m-        const sections = document.querySelectorAll('section');[m
+[31m-        const navItems = document.querySelectorAll('.nav-link');[m
+[31m-[m
+[31m-        function updateActiveNav() {[m
+[31m-            const scrollPosition = window.pageYOffset + 100;[m
+[31m-[m
+[31m-            sections.forEach((section, index) => {[m
+[31m-                const sectionTop = section.offsetTop;[m
+[31m-                const sectionHeight = section.offsetHeight;[m
+[31m-[m
+[31m-                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {[m
+[31m-                    navItems.forEach(item => item.classList.remove('active'));[m
+[31m-                    const currentNav = document.querySelector(`.nav-link[href="#${section.id}"]`);[m
+[31m-                    if (currentNav) currentNav.classList.add('active');[m
+[31m-                }[m
+[31m-            });[m
+[31m-        }[m
+[31m-[m
+[31m-        // Navbar scroll effect[m
+[31m-        window.addEventListener('scroll', function() {[m
+[31m-            const navbar = document.getElementById('navbar');[m
+[31m-            if (window.scrollY > 50) {[m
+[31m-                navbar.classList.add('scrolled');[m
+[31m-            } else {[m
+[31m-                navbar.classList.remove('scrolled');[m
+[31m-            }[m
+[31m-            updateActiveNav();[m
+[31m-        });[m
+[31m-[m
+[31m-        // Initial active nav update[m
+[31m-        updateActiveNav();[m
+[31m-[m
+[31m-        // Smooth scrolling for navigation links[m
+[31m-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {[m
+[31m-            anchor.addEventListener('click', function (e) {[m
+[31m-                e.preventDefault();[m
+[31m-                const target = document.querySelector(this.getAttribute('href'));[m
+[31m-                if (target) {[m
+[31m-                    target.scrollIntoView({[m
+[31m-                        behavior: 'smooth',[m
+[31m-                        block: 'start'[m
+[31m-                    });[m
+[31m-                }[m
+[31m-            });[m
+[31m-        });[m
+[31m-[m
+[31m-        // Feature tabs functionality[m
+[31m-        const tabs = document.querySelectorAll('.tab-item');[m
+[31m-        const panels = document.querySelectorAll('.content-panel');[m
+[31m-[m
+[31m-        tabs.forEach(tab => {[m
+[31m-            tab.addEventListener('click', () => {[m
+[31m-                const tabId = tab.getAttribute('data-tab');[m
+[31m-                [m
+[31m-                // Remove active class from all tabs and panels[m
+[31m-                tabs.forEach(t => t.classList.remove('active'));[m
+[31m-                panels.forEach(p => p.classList.remove('active'));[m
+[31m-                [m
+[31m-                // Add active class to clicked tab and corresponding panel[m
+[31m-                tab.classList.add('active');[m
+[31m-                document.getElementById(tabId).classList.add('active');[m
+[31m-            });[m
+[31m-        });[m
+[31m-[m
+[31m-        // Form submission[m
+[31m-        document.getElementById('contactForm').addEventListener('submit', function(e) {[m
+[31m-            e.preventDefault();[m
+[31m-            // Add your form submission logic here[m
+[31m-            alert('Message sent! We\'ll get back to you soon.');[m
+[31m-            this.reset();[m
+[31m-        });[m
+[31m-[m
+[31m-        // Initialize particles[m
+[31m-        createParticles();[m
+[31m-// --------------------------------------[m
+[31m-// Sign In / Sign Up[m
+[31m-// --------------------------------------[m
+[31m-const signInBtn = document.getElementById('showSignIn');[m
+[31m-const signUpBtn = document.getElementById('showSignUp');[m
+[31m-const signInForm = document.getElementById('signInFormContainer');[m
+[31m-const signUpForm = document.getElementById('signUpFormContainer');[m
+[31m-[m
+[31m-signInBtn?.addEventListener('click', () => {[m
+[31m-    signInForm.style.display = 'block';[m
+[31m-    signUpForm.style.display = 'none';[m
+[31m-    signInBtn.classList.add('active');[m
+[31m-    signUpBtn.classList.remove('active');[m
+[31m-});[m
+[31m-[m
+[31m-signUpBtn?.addEventListener('click', () => {[m
+[31m-    signUpForm.style.display = 'block';[m
+[31m-    signInForm.style.display = 'none';[m
+[31m-    signUpBtn.classList.add('active');[m
+[31m-    signInBtn.classList.remove('active');[m
+[31m-});[m
+[31m-[m
+[31m-document.getElementById('signinForm')?.addEventListener('submit', (e) => {[m
+[31m-    e.preventDefault();[m
+[31m-    const email = document.getElementById('signinEmail').value;[m
+[31m-    const password = document.getElementById('signinPassword').value;[m
+[31m-    alert(`Sign In submitted\nEmail: ${email}\nPassword: ${password}`);[m
+[31m-    e.target.reset();[m
+[31m-});[m
+[31m-[m
+[31m-document.getElementById('signupForm')?.addEventListener('submit', (e) => {[m
+[31m-    e.preventDefault();[m
+[31m-    const name = document.getElementById('signupName').value;[m
+[31m-    const email = document.getElementById('signupEmail').value;[m
+[31m-    const password = document.getElementById('signupPassword').value;[m
+[31m-    const confirmPassword = document.getElementById('signupConfirmPassword').value;[m
+[31m-[m
+[31m-    if (password !== confirmPassword) {[m
+[31m-        alert('Passwor
